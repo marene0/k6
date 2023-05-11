@@ -3,12 +3,17 @@
 #include <iostream>
 #include <string>
 #include<sstream>
+#include<stdexcept>
+#include"Date.h"
+#include"Time.h"
+#include"Program.h"
+#include"ProgramSchedule.h"
 using namespace std;
 
 class ConsoleIO
 {
 public:
-	static float CheckOnInt(float a)
+	static int CheckOnInt(int a)
 	{
 		if (static_cast<int>(a) != a)
 		{
@@ -25,26 +30,26 @@ public:
 		cin >> value;
 		return value;
 	}
-	static float GetValue()
+	static int GetValue()
 	{
-		float value;
+		int value;
 		cin >> value;
 		return value;
 	}
-	static float GetInt()
+	static int GetInt()
 	{
 		int i = 0;
-		float value;
+		int value;
 		while (i == 0)
 		{
 			cin >> value;
 			try
 			{
-				float value1 = CheckOnInt(value);
+				int value1 = CheckOnInt(value);
 				i++;
 				return value1;
 			}
-			catch (const float a)
+			catch (const int a)
 			{
 				cout << "no " << endl;
 
@@ -52,7 +57,7 @@ public:
 		}
 
 	}
-	static float G(float a)
+	static int G(int a)
 	{
 		int i = 0;
 		while (i == 0 || i == 2)
@@ -64,11 +69,11 @@ public:
 			}
 			try
 			{
-				float a1 = CheckOnInt(a);
+				int a1 = CheckOnInt(a);
 				i++;
 				return a1;
 			}
-			catch (const float a)
+			catch (const int a)
 			{
 				cout << "no " << endl;
 
@@ -79,210 +84,6 @@ public:
 };
 
 
-class Date
-{
-	string year;
-	string month;
-	string day;
-public:
-
-	Date()
-	{
-		//year = 0;
-		//month = 0;
-		//day = 0;
-	}
-
-
-	string getYear()
-	{
-		return year;
-	}
-	void setYear(string year)
-	{
-		this->year = year;
-	}
-
-	string getMonth()
-	{
-		return month;
-	}
-	void setMonth(string month)
-	{
-		this->month = month;
-	}
-
-	string getDay()
-	{
-		return day;
-	}
-	void setDay(string day)
-	{
-		this->day = day;
-	}
-};
-
-class Time
-{
-	string hour;
-	string minute;
-	string second;
-public:
-
-	Time()
-	{
-		//second = 0;
-	}
-
-
-	string getHour()
-	{
-		return hour;
-	}
-	void setHour(string hour)
-	{
-		this->hour = hour;
-	}
-	string getMinute()
-	{
-		return minute;
-	}
-	void setMinute(string minute)
-	{
-		this->minute = minute;
-	}
-	string getSecond()
-	{
-		return second;
-	}
-	void setSecond(string second)
-	{
-		this->second = second;
-	}
-
-
-};
-
-class Program
-{
-protected:
-	string name;
-	string type;
-	Date date;
-	Time time;
-public:
-	string getHour()
-	{
-		return time.getHour();
-	}
-	void setHour(string hour)
-	{
-		time.setHour(hour);
-	}
-	string getMinute()
-	{
-		return time.getMinute();
-	}
-	void setMinute(string minute)
-	{
-		time.setMinute(minute);
-	}
-	string getSecond()
-	{
-		return time.getSecond();
-	}
-	void setSecond(string second)
-	{
-		time.setSecond(second);
-	}
-
-
-	string getYear()
-	{
-		return date.getYear();
-	}
-	void setYear(string year)
-	{
-		date.setYear(year);
-	}
-	string getMonth()
-	{
-		return date.getMonth();
-	}
-	void setMonth(string month)
-	{
-		date.setMonth(month);
-	}
-
-	string getDay()
-	{
-		return date.getDay();
-	}
-	void setDay(string day)
-	{
-		date.setDay(day);
-	}
-
-
-
-	string getName()
-	{
-		return name;
-	}
-	void setName(string name)
-	{
-		this->name = name;
-	}
-	string getType()
-	{
-		return type;
-	}
-	void setType(string type)
-	{
-		this->type = type;
-	}
-	
-	Program() {}
-	Program(string n, string t) : name(n), type(t) {}
-	virtual ~Program() {}
-
-	virtual void display() const // віртуальний метод виведення
-	{
-		cout << "Program name: " << name << endl;
-		cout << "Program type: " << type << endl;
-	}
-	
-};
-
-
-
-class ProgramSchedule {
-private:
-	Program* programs; // масив об'єктів класу Program
-	int size; // розмір масиву
-public:
-	ProgramSchedule(int size) {
-		this->size = size;
-		programs = new Program[size];
-	}
-
-	~ProgramSchedule() {
-		delete[] programs;
-	}
-
-	// Гетер та сетер для елемента масиву programs
-	Program& operator[](int index) {
-		return programs[index];
-	}
-
-	// Виведення всіх програм у розкладі
-	void display() const {
-		for (int i = 0; i < size; i++) {
-			programs[i].display();
-			cout << endl;
-		}
-	}
-};
 
 
 
@@ -355,7 +156,7 @@ istream& operator >> (istream& in, Program& Program)
 		cerr << "Unknown error occurred." << endl;
 	}
 
-	//ConsoleIO::G(n);
+	//ConsoleIO::G(a);
 
 	cout << "Date:" << endl;
 	cout << "Year: ";
@@ -406,7 +207,7 @@ istream& operator >> (istream& in, Program& Program)
 	catch (...) {
 		cerr << "Unknown error occurred." << endl;
 	}
-	//ConsoleIO::G(n); // не знаю чому тут (b)  
+	//ConsoleIO::G(a); // не знаю чому тут (b)  
 	return in;
 }
 
@@ -445,7 +246,7 @@ void Output1(Program & program )
 	cout << endl;
 }
 
-class TimeIO
+class ProgramIO
 {
 public:
 	void Input(Program& program)
@@ -468,9 +269,9 @@ class ProgramManager
 {
 
 
-	int TimeCount = ConsoleIO::GetInt();
-	Program* programs = new Program[TimeCount];
-	TimeIO* IOWorker = new TimeIO();
+	int ProgramCount = ConsoleIO::GetInt();
+	Program* programs = new Program[ProgramCount];
+	ProgramIO* IOWorker = new ProgramIO();
 public:
 	ProgramManager()
 	{
@@ -484,7 +285,7 @@ public:
 
 	void fillPrograms()
 	{
-		for (int i = 0; i < TimeCount; i++)
+		for (int i = 0; i < ProgramCount; i++)
 		{
 			IOWorker->Input(programs[i]);
 		}
@@ -493,7 +294,7 @@ public:
 	{
 		cout << endl;
 		cout << "list" << endl;
-		for (int i = 0; i < TimeCount; i++)
+		for (int i = 0; i < ProgramCount; i++)
 		{
 			IOWorker->Output(programs[i]);
 		}
@@ -501,20 +302,20 @@ public:
 	void AddPrograms1()
 	{
 
-		AddPrograms(programs, TimeCount);
+		AddPrograms(programs, ProgramCount);
 	}
-	void AddPrograms(Program*& programs, int& TimeCount)
+	void AddPrograms(Program*& programs, int& ProgramCount)
 	{
-		Program* newProgram = new Program[TimeCount + 1];
+		Program* newProgram = new Program[ProgramCount + 1];
 
-		for (int i = 0; i < TimeCount; i++)
+		for (int i = 0; i < ProgramCount; i++)
 		{
 			newProgram[i] = programs[i];
 		}
 
-		IOWorker->Input(newProgram[TimeCount]);
+		IOWorker->Input(newProgram[ProgramCount]);
 
-		TimeCount++;
+		ProgramCount++;
 
 		delete[] programs;
 
@@ -522,18 +323,18 @@ public:
 	}
 	void deletePrograms1()
 	{
-		deletePrograms(programs, TimeCount);
+		deletePrograms(programs, ProgramCount);
 	}
-	void deletePrograms(Program*& programs, int& TimeCount)
+	void deletePrograms(Program*& programs, int& ProgramCount)
 	{
-		Program* newProgram = new Program[TimeCount - 1];
+		Program* newProgram = new Program[ProgramCount - 1];
 
-		for (int i = 0; i < TimeCount - 1; i++)
+		for (int i = 0; i < ProgramCount - 1; i++)
 		{
 			newProgram[i] = programs[i];
 		}
 
-		TimeCount--;
+		ProgramCount--;
 
 		delete[] programs;
 
@@ -546,17 +347,32 @@ public:
 	void FindProgram() 
 	{
 		string n;
+		
 		cout << "\tenter name : ";
 		cin >> n;
-		for (int i = 0; i < TimeCount; i++)
+		try {
+			int name = stoi(n);
+			if (name > 0 || name < 1) {
+				throw "ONLY LETTERS";
+			}
+			//Program.setName(n);
+		}
+		catch (const char* errorMessage) {
+			cerr << "A NEMA, VKRALU CUGANU" << errorMessage << endl;
+		}
+		catch (...) {
+			cerr << " " << endl;
+		}
+		
+		for (int i = 0; i < ProgramCount; i++)
 		{
 			if (n == programs[i].getName())
 			{
 				IOWorker->Output2(programs[i]);
 			}
 		}
+		
 	}
-
 };
 
 
@@ -703,8 +519,9 @@ a:
 					cout << "error";
 					Menu1();
 				}
-
 			}
+
+
 		default:
 			cout << endl;
 			cout << "error" << endl;
